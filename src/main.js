@@ -20,6 +20,84 @@ const scrollNativo = CSS.supports('animation-timeline', 'view()')
 const escritorio = window.matchMedia('(min-width: 1024px)')
 const puedeHover = window.matchMedia('(hover: hover) and (pointer: fine)')
 
+/* ═══════════════ Conversiones de WhatsApp (antes que nada) ══════════════ */
+
+// Va al principio a propósito: es lo único de este archivo que mide dinero. El
+// listener es delegado sobre `document` y no depende de ningún nodo, así que
+// funciona igual de bien aquí arriba — y deja de estar a merced de que las ~500
+// líneas de animación de más abajo se inicialicen sin lanzar. Si alguna de
+// ellas fallara en algún navegador, el módulo abortaría y este registro nunca
+// llegaría a ocurrir.
+//
+// Un solo nombre de evento con parámetros, en lugar de un nombre por botón. El
+// esquema anterior generaba 139 nombres distintos: 35 pasaban de los 40
+// caracteres que admite GA4 (que los corta) y 7 quedaban fusionados tras el
+// corte. Como parámetros, el servicio y la ubicación caben holgados (100
+// caracteres) y admiten guiones, que en un nombre de evento están fuera de
+// especificación.
+//
+// Los `data-wa-label` de las plantillas se conservan tal cual y se descomponen
+// aquí: `wa_click_<servicio>_<ubicacion>`. La lista va de sufijo más específico
+// a más general, porque `_header_movil` debe ganarle a `_header` y `_ctafinal`
+// a `_cta`.
+const WA_UBICACIONES = [
+  'header_movil', 'header', 'hero', 'landing', 'proceso', 'faq', 'doctora',
+  'ubicacion', 'ctafinal', 'ctafija', 'floating', 'footer', 'escena',
+  'recorrido', 'orientacion', 'direccion', 'canal', 'cta',
+  'primera', 'revision', 'estudios', 'prenatal', 'resultado',
+]
+
+function desglosarWa(label) {
+  const cuerpo = label.replace(/^wa_click_/, '')
+  for (const u of WA_UBICACIONES) {
+    if (cuerpo === u) return { servicio: 'general', ubicacion: u }
+    if (cuerpo.endsWith(`_${u}`)) {
+      return { servicio: cuerpo.slice(0, -(u.length + 1)), ubicacion: u }
+    }
+  }
+  // El CTA dentro del cuerpo de un artículo es `wa_click_blog_<id>`, sin sufijo
+  // de posición. Se le da el suyo para que no caiga en el cajón de sastre y para
+  // que coincida con el servicio de su cabecera y su botón flotante.
+  if (cuerpo.startsWith('blog_')) return { servicio: cuerpo, ubicacion: 'articulo' }
+  return { servicio: cuerpo || 'general', ubicacion: 'otro' }
+}
+
+document.addEventListener('click', (e) => {
+  const enlace = e.target.closest('[data-wa-label]')
+  if (!enlace || typeof gtag !== 'function') return
+
+  const label = enlace.dataset.waLabel
+  const href = enlace.getAttribute('href') || ''
+
+  // El botón de teléfono de /contacto/ comparte el atributo pero no es un clic
+  // de WhatsApp: hasta ahora disparaba la conversión de Ads por una llamada.
+  if (href.startsWith('tel:')) {
+    gtag('event', 'telefono_click', {
+      ubicacion: 'contacto',
+      link_url: href,
+      transport_type: 'beacon',
+    })
+    return
+  }
+
+  const { servicio, ubicacion } = desglosarWa(label)
+  gtag('event', 'whatsapp_click', {
+    servicio,
+    ubicacion,
+    link_url: href,
+    pagina: location.pathname,
+    label, // el nombre antiguo, para poder cruzar con los datos históricos
+    transport_type: 'beacon',
+  })
+
+  gtag('event', 'conversion', {
+    send_to: GTAG_CONVERSION,
+    value: 1.0,
+    currency: 'MXN',
+    transport_type: 'beacon',
+  })
+})
+
 /* ══════════════════════════════════════════ 1. Tipografía cinética ══════ */
 
 // Envuelve cada palabra en `<span class="pal"><span>…</span></span>` sin
@@ -545,23 +623,7 @@ $$('[data-carrusel]').forEach((bloque) => {
   })
 })
 
-/* ═════════════════════════ 12. Conversiones de WhatsApp ═════════════════ */
-
-document.addEventListener('click', (e) => {
-  const enlace = e.target.closest('[data-wa-label]')
-  if (!enlace || typeof gtag !== 'function') return
-  gtag('event', 'conversion', {
-    send_to: GTAG_CONVERSION,
-    value: 1.0,
-    currency: 'MXN',
-  })
-  gtag('event', enlace.dataset.waLabel, {
-    event_category: 'WhatsApp',
-    event_label: enlace.dataset.waLabel,
-  })
-})
-
-/* ═══════════════════════════ 13. Transiciones entre páginas ═════════════ */
+/* ═══════════════════════════ 12. Transiciones entre páginas ═════════════ */
 
 $$('a[href^="/"]').forEach((link) => {
   link.addEventListener('click', (e) => {
@@ -594,7 +656,7 @@ window.addEventListener('pageshow', () => {
   document.body.style.overflow = ''
 })
 
-/* ═══════════════════════════ 14. Anclas tras cargar fuentes ═════════════ */
+/* ═══════════════════════════ 13. Anclas tras cargar fuentes ═════════════ */
 
 // Al abrir un enlace con ancla, el navegador salta antes de que carguen las
 // fuentes web; cuando estas cambian la altura del texto el destino se desplaza.
@@ -630,7 +692,7 @@ if (location.hash) {
   }
 }
 
-/* ═══════════════════════════ 15. Consentimiento de cookies ══════════════ */
+/* ═══════════════════════════ 14. Consentimiento de cookies ══════════════ */
 
 const COOKIE_KEY = 'cookieConsent'
 const COOKIE_ACCEPTED = 'accepted'

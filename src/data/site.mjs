@@ -37,6 +37,10 @@ export const DIRECCION = {
   mapsId: '0x85d1ff9dbb94facf:0xa5dc7bf9ebf15a61',
 }
 
+// Propiedad de GA4 (flujo 15466739327). Hasta ahora el sitio solo declaraba la
+// etiqueta de Ads y GA4 recibía datos porque está enlazada como destino desde
+// la interfaz de Google. Se declara aquí para no depender de esa configuración.
+export const GA4_ID = 'G-J7MCYYV1TB'
 export const GTAG_ID = 'AW-18297301316'
 export const GTAG_CONVERSION = 'AW-18297301316/OBhzCLm2tcocEMTS6pRE'
 

@@ -7,6 +7,7 @@ import {
   DISCLAIMER,
   DOCTORA,
   DOMAIN,
+  GA4_ID,
   GTAG_ID,
   LOGO,
   MAPS_EMBED,
@@ -89,8 +90,8 @@ export function head({
   ${preload ? `<link rel="preload" as="image" href="${preload}" fetchpriority="high">` : ''}
 
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}"></script>
-  <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GTAG_ID}'); </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=${GA4_ID}"></script>
+  <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GA4_ID}'); gtag('config', '${GTAG_ID}'); </script>
 
   <!-- CSS en el head (render-blocking) para evitar FOUC; el JS solo trae interacción -->
   <link rel="stylesheet" href="/src/styles/main.css">
