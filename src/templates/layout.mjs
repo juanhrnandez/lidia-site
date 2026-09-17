@@ -685,38 +685,6 @@ export function footer({ logoAlt, espacioCtaFija = false }) {
   </footer>`
 }
 
-/* ═════════════════════════════════════════════════ banner de cookies ══ */
-
-export function bannerCookies() {
-  return `
-  <!-- Banner de consentimiento de cookies -->
-  <aside id="cookie-banner" role="region" aria-label="Consentimiento de cookies"
-         class="fixed bottom-5 left-5 z-[1500] max-w-[440px] w-[calc(100vw-2.5rem)] rounded-[1.5rem] border border-white/15 bg-noche/95 p-5 text-white shadow-alta backdrop-blur-xl transition-all duration-500 ease-suave translate-y-8 opacity-0 pointer-events-none data-visible:translate-y-0 data-visible:opacity-100 data-visible:pointer-events-auto max-sm:bottom-4 max-sm:left-3 max-sm:w-[calc(100vw-1.5rem)] max-sm:p-4">
-    <div class="flex items-start gap-3.5">
-      <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-oro-rosa/20 text-oro-rosa-claro">
-        ${icono('escudo', 'h-4 w-4')}
-      </span>
-      <div class="min-w-0 flex-1">
-        <p class="text-[0.88rem] font-bold leading-snug text-white">Uso de cookies y privacidad</p>
-        <p class="mt-1 text-[0.82rem] leading-relaxed text-white/75">
-          Este sitio web utiliza cookies técnicas y de análisis para optimizar tu experiencia y medir de forma anónima el tráfico. Conoce más en nuestra
-          <a href="/politica-de-cookies/" class="underline underline-offset-2 hover:text-oro-rosa transition-colors">Política de Cookies</a> y
-          <a href="/aviso-de-privacidad/" class="underline underline-offset-2 hover:text-oro-rosa transition-colors">Aviso de Privacidad</a>.
-        </p>
-      </div>
-    </div>
-    <div class="mt-4 flex items-center justify-end gap-3 border-t border-white/10 pt-3">
-      <a href="/politica-de-cookies/" class="no-underline px-2 py-1.5 text-[0.78rem] font-bold text-white/70 transition-colors hover:text-white">
-        Más información
-      </a>
-      <button type="button" data-cookie-accept
-              class="cursor-pointer rounded-full bg-oro-rosa hover:bg-oro-rosa-oscuro px-5 py-2 text-[0.84rem] font-bold text-white shadow-[0_4px_16px_rgba(216,148,171,0.4)] transition duration-300 ease-suave hover:-translate-y-0.5 active:translate-y-0">
-        Aceptar cookies
-      </button>
-    </div>
-  </aside>`
-}
-
 /* ══════════════════════════════════════════════════════════════ shell ══ */
 
 export function pageShell({ headHtml, bodyHtml }) {
@@ -727,7 +695,6 @@ ${headHtml}
 </head>
 <body class="grano bg-lino antialiased">
 ${bodyHtml}
-${bannerCookies()}
 </body>
 </html>`
 }

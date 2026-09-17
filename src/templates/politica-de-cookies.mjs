@@ -126,18 +126,6 @@ function cuerpoCookies() {
           : ''
       }
       ${sec.tabla ? tablaCookies(sec.tabla) : ''}
-      ${
-        sec.accionBoton
-          ? `<div class="mt-6 flex flex-wrap items-center gap-4">
-        <button type="button" data-reset-cookies
-                class="group inline-flex items-center gap-3 rounded-full border border-marino/25 bg-lino px-6 py-3 text-[0.92rem] font-bold text-marino transition duration-500 ease-suave hover:border-oro-rosa-profundo hover:bg-marino hover:text-white cursor-pointer">
-          <span>${icono('escudo', 'h-4 w-4')}</span>
-          <span>Restablecer preferencias de cookies</span>
-        </button>
-        <span id="reset-msg" class="text-[0.88rem] font-semibold text-oro-rosa-profundo opacity-0 transition-opacity duration-300" aria-live="polite">Preferencias restablecidas.</span>
-      </div>`
-          : ''
-      }
     </article>`
 
   return `

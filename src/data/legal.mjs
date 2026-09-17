@@ -110,7 +110,6 @@ export const POLITICA_COOKIES = {
       titulo: '1. ¿Qué son las cookies y el almacenamiento local?',
       contenido: [
         'Una cookie es un pequeño archivo de texto que los sitios web envían al navegador del usuario al visitarlos. Las cookies permiten a una página web almacenar y recuperar información sobre los hábitos de navegación de un usuario o de su equipo con el fin de facilitar la navegación, recordar preferencias o generar métricas de rendimiento.',
-        'Asimismo, este sitio web utiliza <strong class="font-semibold text-marino">localStorage</strong> (almacenamiento local del navegador) para guardar de forma segura su consentimiento sobre el uso de cookies y evitar mostrarle el banner en cada visita.',
       ],
     },
     {
@@ -118,7 +117,7 @@ export const POLITICA_COOKIES = {
       titulo: '2. ¿Qué tipos de cookies utilizamos en este sitio?',
       contenido: [
         'En este sitio web utilizamos únicamente las cookies estrictamente necesarias para el funcionamiento del portal y herramientas de analítica web anónima:',
-        '<strong>a) Cookies y almacenamiento técnico / esenciales:</strong> Son aquellas indispensables para que el sitio funcione correctamente, permitiendo la navegación fluida, la seguridad de la sesión y el registro de su consentimiento de privacidad.',
+        '<strong>a) Cookies y almacenamiento técnico / esenciales:</strong> Son aquellas indispensables para que el sitio funcione correctamente, permitiendo la navegación fluida y la seguridad de la sesión.',
         '<strong>b) Cookies analíticas / de medición:</strong> A través de servicios como Google Tag (Google Analytics), recopilamos datos agregados y totalmente anónimos sobre el número de visitantes, páginas más consultadas, tiempo de permanencia y origen del tráfico. Esta información nos permite optimizar la velocidad y calidad del sitio.',
       ],
     },
@@ -126,13 +125,6 @@ export const POLITICA_COOKIES = {
       id: 'tabla-cookies',
       titulo: '3. Detalle de tecnologías y almacenamiento',
       tabla: [
-        {
-          nombre: 'cookieConsent',
-          proveedor: 'Propio (dralidiachavez.com)',
-          tipo: 'Almacenamiento Local (localStorage)',
-          finalidad: 'Almacena la confirmación de aceptación del banner de cookies para no volver a mostrarlo en visitas posteriores.',
-          duracion: 'Persistente (hasta que el usuario limpie los datos de navegación)',
-        },
         {
           nombre: '_ga / _ga_*',
           proveedor: 'Google Analytics (Google LLC)',
@@ -157,14 +149,6 @@ export const POLITICA_COOKIES = {
         '• <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener" class="font-semibold text-oro-rosa-profundo hover:underline">Google Chrome</a><br>• <a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener" class="font-semibold text-oro-rosa-profundo hover:underline">Apple Safari</a><br>• <a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank" rel="noopener" class="font-semibold text-oro-rosa-profundo hover:underline">Mozilla Firefox</a><br>• <a href="https://support.microsoft.com/es-es/microsoft-edge/eliminar-las-cookies-en-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener" class="font-semibold text-oro-rosa-profundo hover:underline">Microsoft Edge</a>',
         'Tenga en cuenta que si desactiva las cookies esenciales, algunas funciones técnicas de navegación podrían verse afectadas.',
       ],
-    },
-    {
-      id: 'preferencias',
-      titulo: '5. Gestión de preferencias en este sitio',
-      contenido: [
-        'Puede reiniciar en cualquier momento su elección de cookies en este sitio web pulsando el siguiente botón, lo que eliminará el registro guardado en su navegador y le permitirá revisar nuevamente el banner de consentimiento:',
-      ],
-      accionBoton: true,
     },
   ],
 }
